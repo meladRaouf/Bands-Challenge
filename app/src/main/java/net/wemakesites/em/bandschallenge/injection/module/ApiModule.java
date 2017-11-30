@@ -8,15 +8,13 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 
-/**
- * Created by shivam on 29/5/17.
- */
+
 @Module(includes = {NetworkModule.class})
 public class ApiModule {
 
     @Provides
     @Singleton
-    BandsService providePokemonApi(Retrofit retrofit) {
+    BandsService provideBandsService(Retrofit retrofit) {
         return retrofit.create(BandsService.class);
     }
 }

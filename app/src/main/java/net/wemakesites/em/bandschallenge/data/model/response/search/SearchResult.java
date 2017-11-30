@@ -50,4 +50,9 @@ public class SearchResult {
         this.country = country;
     }
 
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

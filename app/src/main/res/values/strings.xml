@@ -4,4 +4,7 @@
     <string name="error_title">No data</string>
     <string name="error_message">There was a problem loading the data, please try again!</string>
     <string name="error_reload">Reload</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
