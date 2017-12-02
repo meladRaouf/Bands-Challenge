@@ -1,9 +1,10 @@
 package net.wemakesites.em.bandschallenge.features.base;
 
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import rx.Observable;
-import rx.Single;
+
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
@@ -52,36 +53,5 @@ public class BasePresenter<T extends MvpView> implements Presenter<T> {
         }
     }
 
-    /**
-     * Encapsulate the result of an rx Observable. This model is meant to be used by the children
-     * presenters to easily keep a reference to the latest loaded result so that it can be easily
-     * emitted again when on configuration changes.
-     */
-    protected static class DataResult<T> {
 
-        private T mData;
-        private Throwable mError;
-
-        public DataResult(T data) {
-            mData = data;
-        }
-
-        public DataResult(Throwable error) {
-            mError = error;
-        }
-
-        public Single<T> toSingle() {
-            if (mError != null) {
-                return Single.error(mError);
-            }
-            return Single.just(mData);
-        }
-
-        public Observable<T> toObservable() {
-            if (mError != null) {
-                return Observable.error(mError);
-            }
-            return Observable.just(mData);
-        }
-    }
 }

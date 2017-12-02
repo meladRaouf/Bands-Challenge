@@ -9,7 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 
 
-@Module(includes = {ApiModule.class})
+@Module(includes = {ApiModule.class,DbModule.class})
 public class AppModule {
     private final Application application;
 

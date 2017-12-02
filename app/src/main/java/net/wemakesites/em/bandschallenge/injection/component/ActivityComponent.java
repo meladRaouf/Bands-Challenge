@@ -9,6 +9,5 @@ import dagger.Subcomponent;
 @PerActivity
 @Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent {
-
     void inject(SearchBandsByNameActivity searchBandsByNameActivity);
 }

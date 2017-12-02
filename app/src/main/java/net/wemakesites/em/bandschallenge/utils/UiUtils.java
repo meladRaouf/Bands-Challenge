@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 
 public class UiUtils {
-    private UiUtils(){
+    private UiUtils() {
 
     }
 
@@ -19,7 +19,7 @@ public class UiUtils {
         view.setVisibility(View.GONE);
     }
 
-    public static void showError(Context context,  int errorMessageResId) {
-        Toast.makeText(context,errorMessageResId,Toast.LENGTH_LONG).show();
+    public static void showError(Context context, int errorMessageResId) {
+        Toast.makeText(context, errorMessageResId, Toast.LENGTH_LONG).show();
     }
 }

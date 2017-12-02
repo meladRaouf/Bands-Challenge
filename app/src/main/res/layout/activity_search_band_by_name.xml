@@ -12,8 +12,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:theme="@style/AppTheme.ToolbarStyle" />
+            android:theme="@style/AppTheme.ToolbarStyle"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -29,12 +29,31 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginStart="@dimen/margin_default"
+            android:lines="1"
             android:layout_marginTop="@dimen/margin_default"
-            android:hint="@string/enter_band_name" />
+            android:hint="@string/enter_band_name"
+            android:imeOptions="actionDone" />
 
 
+        <ProgressBar
+            android:id="@+id/autoCompleteProgressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/autoCompleteTextView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
+        <fragment
+            android:id="@+id/historyFragment"
+            class="net.wemakesites.em.bandschallenge.features.search.searchHistory.SearchHistoryFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            app:layout_constraintTop_toBottomOf="@id/autoCompleteTextView" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

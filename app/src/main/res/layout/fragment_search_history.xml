@@ -1,9 +1,19 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     tools:context="net.wemakesites.em.bandschallenge.features.search.searchHistory.SearchHistoryFragment">
+
+    <TextView
+        android:id="@+id/recentSearchesTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="8dp"
+        android:text="@string/recent_searches"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/searchHistoryRecyclerView"
@@ -11,26 +21,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginTop="8dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_default"
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginTop="@dimen/margin_default"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@id/recentSearchesTitle" />
 
 
 </android.support.constraint.ConstraintLayout>

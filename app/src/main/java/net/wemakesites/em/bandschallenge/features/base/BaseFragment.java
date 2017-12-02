@@ -17,6 +17,7 @@ import net.wemakesites.em.bandschallenge.injection.module.FragmentModule;
 import java.util.concurrent.atomic.AtomicLong;
 
 import butterknife.ButterKnife;
+
 /**
  * Abstract Fragment that every other Fragment in this application must implement. It handles
  * creation of Dagger components and makes sure that instances of ConfigPersistentComponent are kept
@@ -48,7 +49,7 @@ public abstract class BaseFragment extends Fragment {
                             .build();
             componentsArray.put(fragmentId, configPersistentComponent);
         } else {
-             configPersistentComponent = componentsArray.get(fragmentId);
+            configPersistentComponent = componentsArray.get(fragmentId);
         }
         FragmentComponent fragmentComponent =
                 configPersistentComponent.fragmentComponent(new FragmentModule(this));
@@ -64,8 +65,11 @@ public abstract class BaseFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), container, false);
         ButterKnife.bind(this, view);
+        initViews();
         return view;
     }
+
+    protected abstract void initViews();
 
     protected abstract int getLayout();
 
@@ -84,7 +88,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         if (!getActivity().isChangingConfigurations()) {
-              componentsArray.remove(fragmentId);
+            componentsArray.remove(fragmentId);
         }
         detachPresenter();
         super.onDestroy();
