@@ -1,11 +1,14 @@
 package net.wemakesites.em.bandschallenge.features.search.searchhistory;
 
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import net.wemakesites.em.bandschallenge.R;
+import net.wemakesites.em.bandschallenge.data.model.local.SearchHistoryItem;
 import net.wemakesites.em.bandschallenge.features.base.AbstractBaseFragment;
+import net.wemakesites.em.bandschallenge.features.details.DetailsActivity;
 import net.wemakesites.em.bandschallenge.injection.component.FragmentComponent;
 
 import javax.inject.Inject;
@@ -24,8 +27,6 @@ public class SearchHistoryFragment extends AbstractBaseFragment implements Searc
 
     @Inject
     SearchHistoryItemsAdapter adapter;
-
-
 
 
     @Override
@@ -64,7 +65,12 @@ public class SearchHistoryFragment extends AbstractBaseFragment implements Searc
     }
 
     @Override
-    public void showDetails(final long bandId) {
-        //TODO start activity details
+    public void showDetails(final SearchHistoryItem searchHistoryItem) {
+        final Intent intent = DetailsActivity.getStartIntent(getContext(),
+                searchHistoryItem.getId(),
+                searchHistoryItem.getName());
+        startActivity(intent);
     }
+
+
 }

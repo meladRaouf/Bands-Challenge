@@ -15,7 +15,7 @@ public class BandDetailsResponse {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("bandData")
+    @SerializedName("data")
     @Expose
     private BandData bandData;
     @SerializedName("hash")

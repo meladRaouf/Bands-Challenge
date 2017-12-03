@@ -22,7 +22,7 @@ import io.reactivex.subjects.PublishSubject;
 class SearchHistoryItemsAdapter extends RecyclerView.Adapter<SearchHistoryItemsAdapter.SearchHistoryItemViewHolder>
         implements Consumer<List<SearchHistoryItem>> {
 
-    final PublishSubject<Long> clickSubject;
+    final PublishSubject<SearchHistoryItem> clickSubject;
     private List<SearchHistoryItem> items;
 
     @Inject
@@ -49,7 +49,7 @@ class SearchHistoryItemsAdapter extends RecyclerView.Adapter<SearchHistoryItemsA
     }
 
 
-    Observable<Long> getItemClickedObservable() {
+    Observable<SearchHistoryItem> getItemClickedObservable() {
         return clickSubject;
     }
 
@@ -81,7 +81,7 @@ class SearchHistoryItemsAdapter extends RecyclerView.Adapter<SearchHistoryItemsA
         void onBind(final SearchHistoryItem searchHistoryItem) {
             textView.setText(searchHistoryItem.getName());
             RxView.clicks(itemView)
-                    .map(__ -> searchHistoryItem.getId())
+                    .map(__ -> searchHistoryItem)
                     .subscribe(clickSubject);
 
         }

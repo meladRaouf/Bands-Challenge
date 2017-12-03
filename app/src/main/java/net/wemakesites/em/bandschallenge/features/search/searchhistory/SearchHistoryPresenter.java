@@ -42,6 +42,6 @@ public class SearchHistoryPresenter extends BasePresenter<SearchHistoryView> {
     void addRecyclerViewOnItemClickObserver() {
         addDisposable(view.getAdapter()
                 .getItemClickedObservable()
-                .subscribe(id -> view.showDetails(id)));
+                .subscribe(searchHistoryItem -> view.showDetails(searchHistoryItem)));
     }
 }

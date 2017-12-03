@@ -22,6 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".features.details.DetailsActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_details"
+            android:parentActivityName=".features.search.SearchBandsByNameActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.wemakesites.em.bandschallenge.features.search.SearchBandsByNameActivity" />
+        </activity>
     </application>
 
 </manifest>
