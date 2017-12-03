@@ -29,10 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginStart="@dimen/margin_default"
-            android:lines="1"
             android:layout_marginTop="@dimen/margin_default"
             android:hint="@string/enter_band_name"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionDone"
+            android:lines="1" />
 
 
         <ProgressBar
@@ -48,7 +48,7 @@
 
         <fragment
             android:id="@+id/historyFragment"
-            class="net.wemakesites.em.bandschallenge.features.search.searchHistory.SearchHistoryFragment"
+            class="net.wemakesites.em.bandschallenge.features.search.searchhistory.SearchHistoryFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"

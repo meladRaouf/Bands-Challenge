@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import net.wemakesites.em.bandschallenge.BandsChallengeApplication;
 import net.wemakesites.em.bandschallenge.injection.component.ActivityComponent;
 import net.wemakesites.em.bandschallenge.injection.component.ConfigPersistentComponent;
-import net.wemakesites.em.bandschallenge.injection.component.DaggerConfigPersistentComponent;
 import net.wemakesites.em.bandschallenge.injection.module.ActivityModule;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,47 +16,47 @@ import javax.annotation.Nullable;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends AppCompatActivity {
+import static android.R.id;
+import static net.wemakesites.em.bandschallenge.injection.component.DaggerConfigPersistentComponent.builder;
+
+public abstract class AbstractBaseActivity extends AppCompatActivity {
 
     private static final String KEY_ACTIVITY_ID = "KEY_ACTIVITY_ID";
     private static final AtomicLong NEXT_ID = new AtomicLong(0);
-    private static final LongSparseArray<ConfigPersistentComponent> componentsArray =
+    private static final LongSparseArray<ConfigPersistentComponent> COMPONENTS_ARRAY =
             new LongSparseArray<>();
 
     private long activityId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         ButterKnife.bind(this);
 
-        // Create the ActivityComponent and reuses cached ConfigPersistentComponent if this is
-        // being called after a configuration change.
-        activityId =
-                savedInstanceState != null
-                        ? savedInstanceState.getLong(KEY_ACTIVITY_ID)
-                        : NEXT_ID.getAndIncrement();
+        // Create the ActivityComponent and reuses cached
+        // ConfigPersistentComponent if this is being called after a configuration change.
+        activityId = savedInstanceState == null ? NEXT_ID.getAndIncrement() : savedInstanceState.getLong(KEY_ACTIVITY_ID);
         ConfigPersistentComponent configPersistentComponent;
-        if (componentsArray.get(activityId) == null) {
+        if (COMPONENTS_ARRAY.get(activityId) == null) {
 
             configPersistentComponent =
-                    DaggerConfigPersistentComponent.builder()
+                    builder()
                             .appComponent(BandsChallengeApplication.get(this).getComponent())
                             .build();
-            componentsArray.put(activityId, configPersistentComponent);
+            COMPONENTS_ARRAY.put(activityId, configPersistentComponent);
         } else {
 
-            configPersistentComponent = componentsArray.get(activityId);
+            configPersistentComponent = COMPONENTS_ARRAY.get(activityId);
         }
-        ActivityComponent activityComponent =
+        final ActivityComponent activityComponent =
                 configPersistentComponent.activityComponent(new ActivityModule(this));
         inject(activityComponent);
         attachView();
     }
 
     @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+    protected void onPostCreate(@Nullable final Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         initViews(savedInstanceState);
     }
@@ -68,32 +67,33 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void attachView();
 
-    protected abstract void initViews(Bundle savedInstanceState);
+    protected abstract void initViews(final Bundle savedInstanceState);
 
     protected abstract void detachPresenter();
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        boolean result;
+        if (item.getItemId() == id.home) {
+            finish();
+            result = true;
+        } else {
+            result = super.onOptionsItemSelected(item);
         }
+        return result;
+
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putLong(KEY_ACTIVITY_ID, activityId);
+    protected void onSaveInstanceState(final Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putLong(KEY_ACTIVITY_ID, activityId);
     }
 
     @Override
     protected void onDestroy() {
         if (!isChangingConfigurations()) {
-
-            componentsArray.remove(activityId);
+            COMPONENTS_ARRAY.remove(activityId);
         }
         detachPresenter();
         super.onDestroy();

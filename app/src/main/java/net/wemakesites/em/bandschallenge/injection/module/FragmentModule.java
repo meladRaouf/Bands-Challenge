@@ -13,9 +13,9 @@ import dagger.Provides;
 
 @Module
 public class FragmentModule {
-    private Fragment fragment;
+    private final Fragment fragment;
 
-    public FragmentModule(Fragment fragment) {
+    public FragmentModule(final Fragment fragment) {
         this.fragment = fragment;
     }
 

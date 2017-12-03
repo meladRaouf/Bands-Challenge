@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Bands Challenge</string>
     <string name="enter_band_name">Enter band name</string>
-    <string name="error_title">No data</string>
-    <string name="error_message">There was a problem loading the data, please try again!</string>
+    <string name="error_title">No responseData</string>
+    <string name="error_message">There was a problem loading the responseData, please try again!</string>
     <string name="error_reload">Reload</string>
 
     <!-- TODO: Remove or change this placeholder text -->

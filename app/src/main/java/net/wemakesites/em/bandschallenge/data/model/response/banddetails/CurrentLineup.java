@@ -1,4 +1,4 @@
-package net.wemakesites.em.bandschallenge.data.model.response.bandDetails;
+package net.wemakesites.em.bandschallenge.data.model.response.banddetails;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -22,7 +22,7 @@ public class CurrentLineup {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -30,7 +30,7 @@ public class CurrentLineup {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -38,7 +38,7 @@ public class CurrentLineup {
         return instrument;
     }
 
-    public void setInstrument(String instrument) {
+    public void setInstrument(final String instrument) {
         this.instrument = instrument;
     }
 
@@ -46,7 +46,7 @@ public class CurrentLineup {
         return years;
     }
 
-    public void setYears(String years) {
+    public void setYears(final String years) {
         this.years = years;
     }
 

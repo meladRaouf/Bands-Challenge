@@ -1,17 +1,14 @@
 package net.wemakesites.em.bandschallenge.features.search;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 
 import net.wemakesites.em.bandschallenge.R;
-import net.wemakesites.em.bandschallenge.data.model.response.search.SearchResponse;
 import net.wemakesites.em.bandschallenge.data.model.response.search.SearchResult;
-import net.wemakesites.em.bandschallenge.features.base.BaseActivity;
+import net.wemakesites.em.bandschallenge.features.base.AbstractBaseActivity;
 import net.wemakesites.em.bandschallenge.injection.component.ActivityComponent;
 import net.wemakesites.em.bandschallenge.utils.KeyboardUtil;
 import net.wemakesites.em.bandschallenge.utils.UiUtils;
@@ -22,14 +19,14 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class SearchBandsByNameActivity extends BaseActivity implements SearchByNameView {
+public class SearchBandsByNameActivity extends AbstractBaseActivity implements SearchByNameView {
 
 
     @BindView(R.id.autoCompleteTextView)
     AutoCompleteTextView autoCompleteTextView;
 
     @BindView(R.id.autoCompleteProgressBar)
-    ProgressBar autoCompleteProgressBar;
+    ProgressBar progressBar;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -38,13 +35,6 @@ public class SearchBandsByNameActivity extends BaseActivity implements SearchByN
     @Inject
     SearchByNamePresenter presenter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        presenter.addOnAutoCompleteTextViewItemClickedSubscriber();
-        presenter.addOnAutoCompleteTextViewTextChangedObserver();
-    }
-
 
     @Override
     protected int getLayout() {
@@ -52,7 +42,7 @@ public class SearchBandsByNameActivity extends BaseActivity implements SearchByN
     }
 
     @Override
-    protected void inject(ActivityComponent activityComponent) {
+    protected void inject(final ActivityComponent activityComponent) {
         activityComponent.inject(this);
     }
 
@@ -63,9 +53,8 @@ public class SearchBandsByNameActivity extends BaseActivity implements SearchByN
 
 
     @Override
-    protected void initViews(Bundle savedInstanceState) {
+    protected void initViews(final Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
-
     }
 
     @Override
@@ -81,23 +70,23 @@ public class SearchBandsByNameActivity extends BaseActivity implements SearchByN
 
     @Override
     public void showAutoCompleteProgressBar() {
-        UiUtils.showView(autoCompleteProgressBar);
+        UiUtils.showView(progressBar);
     }
 
     @Override
     public void hideAutoCompleteProgressBar() {
-        UiUtils.hideView(autoCompleteProgressBar);
+        UiUtils.hideView(progressBar);
     }
 
     @Override
-    public void displaySearchResult(List<SearchResult> searchResults) {
+    public void displaySearchResult(final List<SearchResult> searchResults) {
 
-        ArrayAdapter<SearchResult> itemsAdapter = new ArrayAdapter<>(this,
+        final ArrayAdapter<SearchResult> itemsAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, searchResults);
         autoCompleteTextView.setAdapter(itemsAdapter);
 
-        String enteredText = autoCompleteTextView.getText().toString();
-        if (searchResults.size() >= 1 && enteredText.equals(searchResults.get(0).getName())) {
+        final String enteredText = autoCompleteTextView.getText().toString();
+        if (!searchResults.isEmpty() && enteredText.equals(searchResults.get(0).getName())) {
             autoCompleteTextView.dismissDropDown();
         } else {
             autoCompleteTextView.showDropDown();
@@ -105,19 +94,19 @@ public class SearchBandsByNameActivity extends BaseActivity implements SearchByN
     }
 
     @Override
-    public void errorLoadingSearchResults(Throwable e) {
+    public void errorLoadingSearchResults(final Throwable e) {
         KeyboardUtil.hideKeyboard(this);
         UiUtils.showError(this, R.string.error_message);
     }
 
     @Override
-    public void bandItemClicked(SearchResult searchResult) {
+    public void bandItemClicked(final SearchResult searchResult) {
         presenter.saveInHistory(searchResult);
         showDetails(searchResult.getId());
     }
 
 
-    private void showDetails(long bandId) {
+    private void showDetails(final long bandId) {
         //TODO start activity details
     }
 

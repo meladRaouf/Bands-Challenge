@@ -1,5 +1,5 @@
 
-package net.wemakesites.em.bandschallenge.data.model.response.bandDetails;
+package net.wemakesites.em.bandschallenge.data.model.response.banddetails;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -28,16 +28,16 @@ public class BandData {
     private String bio;
     @SerializedName("discography")
     @Expose
-    private List<Discography> discography = null;
+    private List<Discography> discography;
     @SerializedName("current_lineup")
     @Expose
-    private List<CurrentLineup> currentLineup = null;
+    private List<CurrentLineup> currentLineup;
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -45,7 +45,7 @@ public class BandData {
         return details;
     }
 
-    public void setDetails(Details details) {
+    public void setDetails(final Details details) {
         this.details = details;
     }
 
@@ -53,7 +53,7 @@ public class BandData {
         return bandName;
     }
 
-    public void setBandName(String bandName) {
+    public void setBandName(final String bandName) {
         this.bandName = bandName;
     }
 
@@ -61,7 +61,7 @@ public class BandData {
         return logo;
     }
 
-    public void setLogo(String logo) {
+    public void setLogo(final String logo) {
         this.logo = logo;
     }
 
@@ -69,7 +69,7 @@ public class BandData {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(final String photo) {
         this.photo = photo;
     }
 
@@ -77,7 +77,7 @@ public class BandData {
         return bio;
     }
 
-    public void setBio(String bio) {
+    public void setBio(final String bio) {
         this.bio = bio;
     }
 
@@ -85,7 +85,7 @@ public class BandData {
         return discography;
     }
 
-    public void setDiscography(List<Discography> discography) {
+    public void setDiscography(final List<Discography> discography) {
         this.discography = discography;
     }
 
@@ -93,7 +93,7 @@ public class BandData {
         return currentLineup;
     }
 
-    public void setCurrentLineup(List<CurrentLineup> currentLineup) {
+    public void setCurrentLineup(final List<CurrentLineup> currentLineup) {
         this.currentLineup = currentLineup;
     }
 

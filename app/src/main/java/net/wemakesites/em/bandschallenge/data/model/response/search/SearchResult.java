@@ -7,6 +7,18 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 public class SearchResult implements Parcelable {
 
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<SearchResult> CREATOR = new Parcelable.Creator<SearchResult>() {
+        @Override
+        public SearchResult createFromParcel(final Parcel parcel) {
+            return new SearchResult(parcel);
+        }
+
+        @Override
+        public SearchResult[] newArray(final int size) {
+            return new SearchResult[size];
+        }
+    };
     @SerializedName("name")
     @Expose
     private String name;
@@ -20,11 +32,18 @@ public class SearchResult implements Parcelable {
     @Expose
     private String country;
 
+    protected SearchResult(final Parcel in) {
+        name = in.readString();
+        id = in.readLong();
+        genre = in.readString();
+        country = in.readString();
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -32,7 +51,7 @@ public class SearchResult implements Parcelable {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 
@@ -40,7 +59,7 @@ public class SearchResult implements Parcelable {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(final String genre) {
         this.genre = genre;
     }
 
@@ -48,21 +67,13 @@ public class SearchResult implements Parcelable {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(final String country) {
         this.country = country;
     }
-
 
     @Override
     public String toString() {
         return getName();
-    }
-
-    protected SearchResult(Parcel in) {
-        name = in.readString();
-        id = in.readLong();
-        genre = in.readString();
-        country = in.readString();
     }
 
     @Override
@@ -71,23 +82,10 @@ public class SearchResult implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(final Parcel dest, final int flags) {
         dest.writeString(name);
         dest.writeLong(id);
         dest.writeString(genre);
         dest.writeString(country);
     }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<SearchResult> CREATOR = new Parcelable.Creator<SearchResult>() {
-        @Override
-        public SearchResult createFromParcel(Parcel in) {
-            return new SearchResult(in);
-        }
-
-        @Override
-        public SearchResult[] newArray(int size) {
-            return new SearchResult[size];
-        }
-    };
 }

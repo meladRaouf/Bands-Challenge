@@ -1,4 +1,4 @@
-package net.wemakesites.em.bandschallenge.features.search.searchHistory;
+package net.wemakesites.em.bandschallenge.features.search.searchhistory;
 
 
 import net.wemakesites.em.bandschallenge.data.DataManager;
@@ -17,19 +17,20 @@ public class SearchHistoryPresenter extends BasePresenter<SearchHistoryView> {
 
 
     @Inject
-    SearchHistoryPresenter(DataManager dataManager) {
+    SearchHistoryPresenter(final DataManager dataManager) {
+        super();
         this.dataManager = dataManager;
     }
 
 
     @Override
-    public void attachView(SearchHistoryView mvpView) {
+    public void attachView(final SearchHistoryView mvpView) {
         super.attachView(mvpView);
         view = getView();
 
     }
 
-    public void addLocalSearchHistoryChangesObserver() {
+    void addLocalSearchHistoryChangesObserver() {
         addDisposable(dataManager.getHistory()
                 .mapToList(SearchHistoryItem.MAPPER)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -38,10 +39,9 @@ public class SearchHistoryPresenter extends BasePresenter<SearchHistoryView> {
 
     }
 
-    public void addRecyclerViewOnItemClickObserver() {
-        addDisposable(
-                view.getAdapter()
-                        .getItemClickedObservable()
-                        .subscribe(id -> view.showDetails(id)));
+    void addRecyclerViewOnItemClickObserver() {
+        addDisposable(view.getAdapter()
+                .getItemClickedObservable()
+                .subscribe(id -> view.showDetails(id)));
     }
 }

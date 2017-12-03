@@ -21,13 +21,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
 
-    protected String getBaseUrl() {
+    private String getBaseUrl() {
         return BuildConfig.METAL_BANDS_API_URL;
     }
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(OkHttpClient okHttpClient, Gson gson) {
+    Retrofit provideRetrofit(final OkHttpClient okHttpClient, final Gson gson) {
         return new Retrofit.Builder()
                 .baseUrl(getBaseUrl())
                 .client(okHttpClient)
@@ -38,8 +38,8 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(ApiKeyInterceptor apiKeyInterceptor) {
-        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+    OkHttpClient provideOkHttpClient(final ApiKeyInterceptor apiKeyInterceptor) {
+        final OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.addInterceptor(apiKeyInterceptor);
         return httpClientBuilder.build();
     }

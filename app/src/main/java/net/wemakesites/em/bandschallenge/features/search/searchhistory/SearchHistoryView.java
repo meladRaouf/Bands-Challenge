@@ -1,4 +1,4 @@
-package net.wemakesites.em.bandschallenge.features.search.searchHistory;
+package net.wemakesites.em.bandschallenge.features.search.searchhistory;
 
 
 import net.wemakesites.em.bandschallenge.features.base.MvpView;

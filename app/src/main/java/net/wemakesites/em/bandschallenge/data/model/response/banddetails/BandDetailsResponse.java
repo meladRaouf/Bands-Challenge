@@ -1,4 +1,4 @@
-package net.wemakesites.em.bandschallenge.data.model.response.bandDetails;
+package net.wemakesites.em.bandschallenge.data.model.response.banddetails;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -26,7 +26,7 @@ public class BandDetailsResponse {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
 
@@ -34,7 +34,7 @@ public class BandDetailsResponse {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(final Integer code) {
         this.code = code;
     }
 
@@ -42,7 +42,7 @@ public class BandDetailsResponse {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 
@@ -50,7 +50,7 @@ public class BandDetailsResponse {
         return bandData;
     }
 
-    public void setBandData(BandData bandData) {
+    public void setBandData(final BandData bandData) {
         this.bandData = bandData;
     }
 
@@ -58,7 +58,7 @@ public class BandDetailsResponse {
         return hash;
     }
 
-    public void setHash(String hash) {
+    public void setHash(final String hash) {
         this.hash = hash;
     }
 

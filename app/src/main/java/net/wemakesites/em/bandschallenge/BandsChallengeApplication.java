@@ -15,7 +15,7 @@ public class BandsChallengeApplication extends Application {
     private AppComponent appComponent;
 
 
-    public static BandsChallengeApplication get(Context context) {
+    public static BandsChallengeApplication get(final Context context) {
         return (BandsChallengeApplication) context.getApplicationContext();
     }
 
@@ -30,7 +30,7 @@ public class BandsChallengeApplication extends Application {
     }
 
 
-    public void setComponent(AppComponent appComponent) {
+    public void setComponent(final AppComponent appComponent) {
         this.appComponent = appComponent;
     }
 

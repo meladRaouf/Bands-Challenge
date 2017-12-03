@@ -14,7 +14,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    BandsService provideBandsService(Retrofit retrofit) {
+    BandsService provideBandsService(final Retrofit retrofit) {
         return retrofit.create(BandsService.class);
     }
 }

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import net.wemakesites.em.bandschallenge.BandsChallengeApplication;
 import net.wemakesites.em.bandschallenge.injection.component.ConfigPersistentComponent;
-import net.wemakesites.em.bandschallenge.injection.component.DaggerConfigPersistentComponent;
 import net.wemakesites.em.bandschallenge.injection.component.FragmentComponent;
 import net.wemakesites.em.bandschallenge.injection.module.FragmentModule;
 
@@ -18,40 +17,39 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import butterknife.ButterKnife;
 
+import static net.wemakesites.em.bandschallenge.injection.component.DaggerConfigPersistentComponent.builder;
+
 /**
- * Abstract Fragment that every other Fragment in this application must implement. It handles
- * creation of Dagger components and makes sure that instances of ConfigPersistentComponent are kept
- * across configuration changes.
+ * Abstract Fragment that every other Fragment in this application must implement.
+ * It handles creation of Dagger components and makes sure that instances of
+ * ConfigPersistentComponent are kept across configuration changes.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class AbstractBaseFragment extends Fragment {
 
     private static final String KEY_FRAGMENT_ID = "KEY_FRAGMENT_ID";
-    private static final LongSparseArray<ConfigPersistentComponent> componentsArray =
+    private static final LongSparseArray<ConfigPersistentComponent> COMPONENTS_ARRAY =
             new LongSparseArray<>();
     private static final AtomicLong NEXT_ID = new AtomicLong(0);
 
     private long fragmentId;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Create the FragmentComponent and reuses cached ConfigPersistentComponent if this is
-        // being called after a configuration change.
-        fragmentId =
-                savedInstanceState != null
-                        ? savedInstanceState.getLong(KEY_FRAGMENT_ID)
-                        : NEXT_ID.getAndIncrement();
+        // Create the FragmentComponent and reuses cached ConfigPersistentComponent
+        // if this is being called after a configuration change.
+        fragmentId = savedInstanceState == null ? NEXT_ID.getAndIncrement() : savedInstanceState.getLong(KEY_FRAGMENT_ID);
         ConfigPersistentComponent configPersistentComponent;
-        if (componentsArray.get(fragmentId) == null) {
+        if (COMPONENTS_ARRAY.get(fragmentId) == null) {
             configPersistentComponent =
-                    DaggerConfigPersistentComponent.builder()
+                    builder()
                             .appComponent(BandsChallengeApplication.get(getActivity()).getComponent())
                             .build();
-            componentsArray.put(fragmentId, configPersistentComponent);
+            COMPONENTS_ARRAY.put(fragmentId, configPersistentComponent);
         } else {
-            configPersistentComponent = componentsArray.get(fragmentId);
+            configPersistentComponent = COMPONENTS_ARRAY.get(fragmentId);
         }
-        FragmentComponent fragmentComponent =
+        final FragmentComponent fragmentComponent =
                 configPersistentComponent.fragmentComponent(new FragmentModule(this));
         inject(fragmentComponent);
         attachView();
@@ -60,10 +58,10 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayout(), container, false);
+            final LayoutInflater inflater,
+            @Nullable final ViewGroup container,
+            @Nullable final Bundle savedInstanceState) {
+        final View view = inflater.inflate(getLayout(), container, false);
         ButterKnife.bind(this, view);
         initViews();
         return view;
@@ -80,15 +78,15 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void detachPresenter();
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putLong(KEY_FRAGMENT_ID, fragmentId);
+    public void onSaveInstanceState(final Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putLong(KEY_FRAGMENT_ID, fragmentId);
     }
 
     @Override
     public void onDestroy() {
         if (!getActivity().isChangingConfigurations()) {
-            componentsArray.remove(fragmentId);
+            COMPONENTS_ARRAY.remove(fragmentId);
         }
         detachPresenter();
         super.onDestroy();

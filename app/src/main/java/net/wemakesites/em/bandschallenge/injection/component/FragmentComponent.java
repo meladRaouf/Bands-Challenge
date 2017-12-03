@@ -1,6 +1,6 @@
 package net.wemakesites.em.bandschallenge.injection.component;
 
-import net.wemakesites.em.bandschallenge.features.search.searchHistory.SearchHistoryFragment;
+import net.wemakesites.em.bandschallenge.features.search.searchhistory.SearchHistoryFragment;
 import net.wemakesites.em.bandschallenge.injection.PerFragment;
 import net.wemakesites.em.bandschallenge.injection.module.FragmentModule;
 

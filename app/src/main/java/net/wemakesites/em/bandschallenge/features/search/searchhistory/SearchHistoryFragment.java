@@ -1,18 +1,18 @@
-package net.wemakesites.em.bandschallenge.features.search.searchHistory;
+package net.wemakesites.em.bandschallenge.features.search.searchhistory;
 
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import net.wemakesites.em.bandschallenge.R;
-import net.wemakesites.em.bandschallenge.features.base.BaseFragment;
+import net.wemakesites.em.bandschallenge.features.base.AbstractBaseFragment;
 import net.wemakesites.em.bandschallenge.injection.component.FragmentComponent;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class SearchHistoryFragment extends BaseFragment implements SearchHistoryView {
+public class SearchHistoryFragment extends AbstractBaseFragment implements SearchHistoryView {
 
 
     @BindView(R.id.searchHistoryRecyclerView)
@@ -25,8 +25,7 @@ public class SearchHistoryFragment extends BaseFragment implements SearchHistory
     @Inject
     SearchHistoryItemsAdapter adapter;
 
-    public SearchHistoryFragment() {
-    }
+
 
 
     @Override
@@ -35,7 +34,7 @@ public class SearchHistoryFragment extends BaseFragment implements SearchHistory
     }
 
     @Override
-    protected void inject(FragmentComponent fragmentComponent) {
+    protected void inject(final FragmentComponent fragmentComponent) {
         fragmentComponent.inject(this);
     }
 
@@ -65,7 +64,7 @@ public class SearchHistoryFragment extends BaseFragment implements SearchHistory
     }
 
     @Override
-    public void showDetails(long bandId) {
+    public void showDetails(final long bandId) {
         //TODO start activity details
     }
 }

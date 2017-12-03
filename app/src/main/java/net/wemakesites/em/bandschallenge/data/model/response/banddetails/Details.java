@@ -1,4 +1,4 @@
-package net.wemakesites.em.bandschallenge.data.model.response.bandDetails;
+package net.wemakesites.em.bandschallenge.data.model.response.banddetails;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -34,7 +34,7 @@ public class Details {
         return countryOfOrigin;
     }
 
-    public void setCountryOfOrigin(String countryOfOrigin) {
+    public void setCountryOfOrigin(final String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
     }
 
@@ -42,7 +42,7 @@ public class Details {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(final String location) {
         this.location = location;
     }
 
@@ -50,7 +50,7 @@ public class Details {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
 
@@ -58,7 +58,7 @@ public class Details {
         return formedIn;
     }
 
-    public void setFormedIn(String formedIn) {
+    public void setFormedIn(final String formedIn) {
         this.formedIn = formedIn;
     }
 
@@ -66,7 +66,7 @@ public class Details {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(final String genre) {
         this.genre = genre;
     }
 
@@ -74,7 +74,7 @@ public class Details {
         return lyricalThemes;
     }
 
-    public void setLyricalThemes(String lyricalThemes) {
+    public void setLyricalThemes(final String lyricalThemes) {
         this.lyricalThemes = lyricalThemes;
     }
 
@@ -82,7 +82,7 @@ public class Details {
         return currentLabel;
     }
 
-    public void setCurrentLabel(String currentLabel) {
+    public void setCurrentLabel(final String currentLabel) {
         this.currentLabel = currentLabel;
     }
 
@@ -90,7 +90,7 @@ public class Details {
         return yearsActive;
     }
 
-    public void setYearsActive(String yearsActive) {
+    public void setYearsActive(final String yearsActive) {
         this.yearsActive = yearsActive;
     }
 

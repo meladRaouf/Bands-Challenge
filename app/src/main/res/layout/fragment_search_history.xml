@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.wemakesites.em.bandschallenge.features.search.searchHistory.SearchHistoryFragment">
+    tools:context="net.wemakesites.em.bandschallenge.features.search.searchhistory.SearchHistoryFragment">
 
     <TextView
         android:id="@+id/recentSearchesTitle"

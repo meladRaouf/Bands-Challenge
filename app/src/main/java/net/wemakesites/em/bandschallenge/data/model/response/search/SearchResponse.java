@@ -15,9 +15,10 @@ public class SearchResponse {
     @SerializedName("message")
     @Expose
     private String message;
+
     @SerializedName("data")
     @Expose
-    private Data data;
+    private ResponseData responseData;
     @SerializedName("hash")
     @Expose
     private String hash;
@@ -26,7 +27,7 @@ public class SearchResponse {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
 
@@ -34,7 +35,7 @@ public class SearchResponse {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(final Integer code) {
         this.code = code;
     }
 
@@ -42,23 +43,23 @@ public class SearchResponse {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 
-    public Data getData() {
-        return data;
+    public ResponseData getResponseData() {
+        return responseData;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setResponseData(final ResponseData responseData) {
+        this.responseData = responseData;
     }
 
     public String getHash() {
         return hash;
     }
 
-    public void setHash(String hash) {
+    public void setHash(final String hash) {
         this.hash = hash;
     }
 

@@ -1,4 +1,4 @@
-package net.wemakesites.em.bandschallenge.data.model.response.bandDetails;
+package net.wemakesites.em.bandschallenge.data.model.response.banddetails;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -22,7 +22,7 @@ public class Discography {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -30,7 +30,7 @@ public class Discography {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -38,7 +38,7 @@ public class Discography {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -46,7 +46,7 @@ public class Discography {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(final String year) {
         this.year = year;
     }
 
