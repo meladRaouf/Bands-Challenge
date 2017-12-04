@@ -1,77 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dataGrid"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:layout_marginTop="?attr/actionBarSize"
-    android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
+    android:background="@color/semiTransparentBlack"
+    android:columnCount="2"
+    android:paddingBottom="?attr/actionBarSize"
+    android:paddingEnd="@dimen/margin_default"
+    android:paddingStart="@dimen/margin_default"
+    android:paddingTop="?attr/actionBarSize">
 
-    android:orientation="vertical">
-
-    <!--TODO fix the image ui-->
-    <ImageView
-        android:id="@+id/bandPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-
-        android:src="@drawable/ic_launcher_foreground"
-        android:alpha="0.8" />
-
-    <GridLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default"
-        android:columnCount="2">
+        android:text="@string/band_name"
+        android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default"
+    <TextView
+        android:id="@+id/bandName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:textStyle="bold" />
 
-            android:text="@string/band_name" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:text="@string/years_of_activity"
 
-        <TextView
-            android:id="@+id/bandName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default" />
+        android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default"
+    <TextView
+        android:id="@+id/yearsOfActivityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default" />
 
-            android:text="@string/years_of_activity" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:text="@string/genre"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/yearsOfActivityTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default" />
+    <TextView
+        android:id="@+id/genreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default"
-            android:text="@string/genre" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:text="@string/country"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/genreTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default"
-            android:text="@string/country" />
-
-        <TextView
-            android:id="@+id/countryTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default" />
-    </GridLayout>
-</FrameLayout>
+    <TextView
+        android:id="@+id/countryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default" />
+</GridLayout>

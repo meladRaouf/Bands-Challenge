@@ -12,7 +12,7 @@
         android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="8dp"
-        android:text="@string/recent_searches"
+        android:text="@string/search_history"
         android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView

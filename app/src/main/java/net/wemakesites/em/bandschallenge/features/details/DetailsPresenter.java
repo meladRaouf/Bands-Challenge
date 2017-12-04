@@ -23,12 +23,12 @@ class DetailsPresenter extends BasePresenter<DetailsView> {
     }
 
     @Override
-    public void attachView(DetailsView mvpView) {
+    public void attachView(final DetailsView mvpView) {
         super.attachView(mvpView);
         view = getView();
     }
 
-     void loadBandDetails(long bandId) {
+    void loadBandDetails(final long bandId) {
         view.showProgress();
 
         addDisposable(dataManager.getBand(bandId)

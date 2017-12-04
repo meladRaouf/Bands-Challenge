@@ -3,6 +3,7 @@ package net.wemakesites.em.bandschallenge.features.details;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,10 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
     public static final String EXTRA_BAND_ID = "EXTRA_BAND_ID";
     public static final String EXTRA_BAND_NAME = "EXTRA_BAND_NAME";
     private static final long DEFAULT_BAND_ID = 0;
+
+
+    @BindView(R.id.dataGrid)
+    View dataGridLayout;
 
     @BindView(R.id.bandPhoto)
     ImageView bandPhoto;
@@ -60,7 +65,7 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
     AlbumsAdapter adapter;
 
     public static Intent getStartIntent(final Context context, final long bandId, final String bandName) {
-        Intent intent = new Intent(context, DetailsActivity.class);
+        final Intent intent = new Intent(context, DetailsActivity.class);
         intent.putExtra(EXTRA_BAND_ID, bandId);
         intent.putExtra(EXTRA_BAND_NAME, bandName);
         return intent;
@@ -87,6 +92,11 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
     @Override
     protected void initViews(final Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         final Intent intent = getIntent();
         if (!intent.hasExtra(EXTRA_BAND_NAME) || !intent.hasExtra(EXTRA_BAND_ID)) {
             throw new IllegalArgumentException("Details Activity requires a band name and id");
@@ -95,7 +105,7 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
         final long bandId = getIntent().getLongExtra(EXTRA_BAND_ID, DEFAULT_BAND_ID);
         setTitle(bandName);
         bandNameextView.setText(bandName);
-
+        UiUtils.hideView(dataGridLayout);
         albumsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         albumsRecyclerView.setAdapter(adapter);
 
@@ -120,17 +130,18 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
     }
 
     @Override
-    public void showBandData(BandData bandData) {
+    public void showBandData(final BandData bandData) {
         //TODO validate banddata
         yearsOfActivityTextView.setText(bandData.getDetails().getYearsActive());
         countryTextView.setText(bandData.getDetails().getCountryOfOrigin());
         genreTextView.setText(bandData.getDetails().getGenre());
         GlideApp.with(this).load(bandData.getPhoto()).into(bandPhoto);
         adapter.setAlbums(bandData.getDiscography());
+        UiUtils.showView(dataGridLayout);
     }
 
     @Override
-    public void showError(Throwable e) {
+    public void showError(final Throwable e) {
         UiUtils.showError(this, R.string.error_message);
         //TODO show reload button
 

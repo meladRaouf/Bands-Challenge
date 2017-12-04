@@ -25,6 +25,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.AlbumsView
 
     @Inject
     AlbumsAdapter() {
+        super();
         items = Collections.emptyList();
     }
 
@@ -34,15 +35,15 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.AlbumsView
     }
 
     @Override
-    public AlbumsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view =
+    public AlbumsViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        final View view =
                 LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_album, parent, false);
         return new AlbumsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(AlbumsViewHolder holder, int position) {
+    public void onBindViewHolder(final AlbumsViewHolder holder, final int position) {
         holder.onBind(items.get(position));
     }
 

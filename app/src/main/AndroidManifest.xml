@@ -25,7 +25,6 @@
         <activity
             android:name=".features.details.DetailsActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_details"
             android:parentActivityName=".features.search.SearchBandsByNameActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
