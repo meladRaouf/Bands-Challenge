@@ -10,7 +10,7 @@ import net.wemakesites.em.bandschallenge.utils.DbUtil;
 import io.reactivex.functions.Function;
 
 
-public class SearchHistoryItem {
+final public class SearchHistoryItem {
     public static final String TABLE = "bands_history";
     public static final String ID = "_id";
     public static final String NAME = "name";

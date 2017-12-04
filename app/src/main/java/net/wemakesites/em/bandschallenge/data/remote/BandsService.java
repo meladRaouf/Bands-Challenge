@@ -14,5 +14,5 @@ public interface BandsService {
     Observable<SearchResponse> searchBands(@Path("keyword") String keyword);
 
     @GET("band/{band_id}")
-    Observable<BandDetailsResponse> getBand(@Path("band_id") String bandId);
+    Observable<BandDetailsResponse> getBand(@Path("band_id") long bandId);
 }

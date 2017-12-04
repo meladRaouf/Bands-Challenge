@@ -5,7 +5,10 @@
     <string name="error_message">There was a problem loading the responseData, please try again!</string>
     <string name="error_reload">Reload</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="recent_searches">Recent Searches</string>
+    <string name="search_history">Search History</string>
+    <string name="action_settings">Settings</string>
+    <string name="years_of_activity">Years of activity:</string>
+    <string name="genre">Genre:</string>
+    <string name="band_name">Band name:</string>
+    <string name="country">Country:</string>
 </resources>

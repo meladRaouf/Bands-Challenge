@@ -34,7 +34,7 @@ public class DataManager {
         return bandsService.searchBands(keyword);
     }
 
-    public Observable<BandDetailsResponse> getBand(final String bandId) {
+    public Observable<BandDetailsResponse> getBand(final long bandId) {
         return bandsService.getBand(bandId);
     }
 

@@ -1,5 +1,6 @@
 package net.wemakesites.em.bandschallenge.features.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
@@ -9,6 +10,7 @@ import android.widget.ProgressBar;
 import net.wemakesites.em.bandschallenge.R;
 import net.wemakesites.em.bandschallenge.data.model.response.search.SearchResult;
 import net.wemakesites.em.bandschallenge.features.base.AbstractBaseActivity;
+import net.wemakesites.em.bandschallenge.features.details.DetailsActivity;
 import net.wemakesites.em.bandschallenge.injection.component.ActivityComponent;
 import net.wemakesites.em.bandschallenge.utils.KeyboardUtil;
 import net.wemakesites.em.bandschallenge.utils.UiUtils;
@@ -102,12 +104,16 @@ public class SearchBandsByNameActivity extends AbstractBaseActivity implements S
     @Override
     public void bandItemClicked(final SearchResult searchResult) {
         presenter.saveInHistory(searchResult);
-        showDetails(searchResult.getId());
+        showDetails(searchResult);
     }
 
 
-    private void showDetails(final long bandId) {
-        //TODO start activity details
+    private void showDetails(final SearchResult searchResult) {
+       final Intent intent = DetailsActivity.getStartIntent(this,
+                searchResult.getId(),
+                searchResult.getName());
+       startActivity(intent);
+
     }
 
 }
