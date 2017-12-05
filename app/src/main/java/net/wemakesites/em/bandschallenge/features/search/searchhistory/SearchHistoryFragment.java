@@ -48,8 +48,8 @@ public class SearchHistoryFragment extends AbstractBaseFragment implements Searc
     protected void initViews() {
         searchHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         searchHistoryRecyclerView.setAdapter(adapter);
-        presenter.addLocalSearchHistoryChangesObserver();
-        presenter.addRecyclerViewOnItemClickObserver();
+        presenter.addHistoryChangeSubscriber();
+        presenter.addRecyclerViewOnItemClickSubscriber();
     }
 
     @Override

@@ -22,6 +22,7 @@ import net.wemakesites.em.bandschallenge.utils.UiUtils;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class DetailsActivity extends AbstractBaseActivity implements DetailsView {
 
@@ -38,6 +39,10 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+
+    @BindView(R.id.retryButton)
+    View retryButton;
+
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -63,6 +68,7 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
 
     @Inject
     AlbumsAdapter adapter;
+    private long bandId;
 
     public static Intent getStartIntent(final Context context, final long bandId, final String bandName) {
         final Intent intent = new Intent(context, DetailsActivity.class);
@@ -102,7 +108,7 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
             throw new IllegalArgumentException("Details Activity requires a band name and id");
         }
         final String bandName = getIntent().getStringExtra(EXTRA_BAND_NAME);
-        final long bandId = getIntent().getLongExtra(EXTRA_BAND_ID, DEFAULT_BAND_ID);
+        bandId = getIntent().getLongExtra(EXTRA_BAND_ID, DEFAULT_BAND_ID);
         setTitle(bandName);
         bandNameextView.setText(bandName);
         UiUtils.hideView(dataGridLayout);
@@ -131,7 +137,10 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
 
     @Override
     public void showBandData(final BandData bandData) {
-        //TODO validate banddata
+        if (bandData == null) {
+            showErrorAndRetryButton();
+            return;
+        }
         yearsOfActivityTextView.setText(bandData.getDetails().getYearsActive());
         countryTextView.setText(bandData.getDetails().getCountryOfOrigin());
         genreTextView.setText(bandData.getDetails().getGenre());
@@ -141,9 +150,16 @@ public class DetailsActivity extends AbstractBaseActivity implements DetailsView
     }
 
     @Override
-    public void showError(final Throwable e) {
+    public void showErrorAndRetryButton() {
         UiUtils.showError(this, R.string.error_message);
-        //TODO show reload button
+        UiUtils.showView(retryButton);
 
+    }
+
+    @OnClick(R.id.retryButton)
+    void retry() {
+        UiUtils.hideView(retryButton);
+        showProgress();
+        presenter.loadBandDetails(bandId);
     }
 }

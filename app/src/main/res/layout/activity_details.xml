@@ -25,6 +25,7 @@
             app:toolbarId="@+id/toolbar">
 
             <ImageView
+                android:contentDescription="@string/band_photo"
                 android:id="@+id/bandPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,4 +51,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
+    <Button
+        android:id="@+id/retryButton"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/retry" />
+
 </android.support.design.widget.CoordinatorLayout>

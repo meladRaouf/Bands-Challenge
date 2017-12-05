@@ -30,7 +30,7 @@ public class SearchHistoryPresenter extends BasePresenter<SearchHistoryView> {
 
     }
 
-    void addLocalSearchHistoryChangesObserver() {
+    void addHistoryChangeSubscriber() {
         addDisposable(dataManager.getHistory()
                 .mapToList(SearchHistoryItem.MAPPER)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -39,7 +39,7 @@ public class SearchHistoryPresenter extends BasePresenter<SearchHistoryView> {
 
     }
 
-    void addRecyclerViewOnItemClickObserver() {
+    void addRecyclerViewOnItemClickSubscriber() {
         addDisposable(view.getAdapter()
                 .getItemClickedObservable()
                 .subscribe(searchHistoryItem -> view.showDetails(searchHistoryItem)));

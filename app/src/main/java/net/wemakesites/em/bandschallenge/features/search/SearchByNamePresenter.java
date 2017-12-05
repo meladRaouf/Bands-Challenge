@@ -1,8 +1,10 @@
 package net.wemakesites.em.bandschallenge.features.search;
 
 
+import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.widget.RxAutoCompleteTextView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent;
 
 import net.wemakesites.em.bandschallenge.data.DataManager;
 import net.wemakesites.em.bandschallenge.data.model.response.search.SearchResponse;
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -38,57 +41,58 @@ class SearchByNamePresenter extends BasePresenter<SearchByNameView> {
     public void attachView(final SearchByNameView mvpView) {
         super.attachView(mvpView);
         view = getView();
-        addOnAutoCompleteTextViewItemClickedSubscriber();
-        addOnAutoCompleteTextViewTextChangedObserver();
-
 
     }
 
-    private void addOnAutoCompleteTextViewTextChangedObserver() {
 
-        final Observable<SearchResponse> autocompleteResponseObservable = getAutoCompleteObservable();
-
-        addDisposable(RxTextView.textChangeEvents(view.getAutoCompleteTextView())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    if (s.text().length() > 0) {
-                        view.showAutoCompleteProgressBar();
-                    }
-                })
-        );
-
-        addDisposable(autocompleteResponseObservable.
-                subscribe(searchResponse -> {
-                            view.displaySearchResult(searchResponse.getResponseData().getSearchResults());
-                            view.hideAutoCompleteProgressBar();
-                        },
-                        e -> view.errorLoadingSearchResults(e)
-                ));
-
-
-    }
-
-    private Observable<SearchResponse> getAutoCompleteObservable() {
-        return RxTextView.textChangeEvents(view.getAutoCompleteTextView())
-                .debounce(DELAY_IN_MILLIS, TimeUnit.MILLISECONDS)
-                .map(textViewTextChangeEvent -> textViewTextChangeEvent.text().toString())
-                .filter(s -> s.length() >= MIN_LENGTH_TO_START)
-                .observeOn(Schedulers.io())
-                .switchMap(dataManager::searchBands)
-                .observeOn(AndroidSchedulers.mainThread())
-                .retry(NUMBER_OF_RETRIES);
-    }
-
-    private void addOnAutoCompleteTextViewItemClickedSubscriber() {
+     void addOnItemClickedSubscriber() {
         final Observable<SearchResult> adapterViewItemClickEventObservable =
                 RxAutoCompleteTextView.itemClickEvents(view.getAutoCompleteTextView())
                         .map(adapterViewItemClickEvent -> (SearchResult) view.getAutoCompleteTextView().getAdapter()
                                 .getItem(adapterViewItemClickEvent.position()))
                         .observeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
-        addDisposable(
-                adapterViewItemClickEventObservable.subscribe(
-                        view::bandItemClicked));
+        addDisposable(adapterViewItemClickEventObservable.subscribe(view::bandItemClicked));
+    }
+
+
+     void addOnTextChangedSubscriber() {
+        InitialValueObservable<TextViewTextChangeEvent> textChangeObservable =
+                RxTextView.textChangeEvents(view.getAutoCompleteTextView());
+        addDisposable(getProgressBarSubscriber(textChangeObservable));
+        addDisposable(getSearchResponseSubscriber(textChangeObservable));
+    }
+
+    private Disposable getProgressBarSubscriber(final InitialValueObservable<TextViewTextChangeEvent> textChangeObservable) {
+        return textChangeObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    if (s.text().length() > 0) {
+                        view.showAutoCompleteProgressBar();
+                    }
+                });
+
+    }
+
+    private Disposable getSearchResponseSubscriber(final InitialValueObservable<TextViewTextChangeEvent> textChangeObservable) {
+        final Observable<SearchResponse> searchResponseObservable =
+                textChangeObservable
+                        .debounce(DELAY_IN_MILLIS, TimeUnit.MILLISECONDS)
+                        .map(textViewTextChangeEvent -> textViewTextChangeEvent.text().toString())
+                        .filter(s -> s.length() >= MIN_LENGTH_TO_START)
+                        .observeOn(Schedulers.io())
+                        .switchMap(dataManager::searchBands)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .retry(NUMBER_OF_RETRIES);
+        return searchResponseObservable.
+                subscribe(searchResponse -> {
+                            view.displaySearchResult(searchResponse.getResponseData().getSearchResults());
+                            view.hideAutoCompleteProgressBar();
+                        },
+                        e -> view.errorLoadingSearchResults(e)
+                );
+
+
     }
 
 
