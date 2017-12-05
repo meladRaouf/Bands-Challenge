@@ -41,7 +41,7 @@ class DetailsPresenter extends BasePresenter<DetailsView> {
                         },
                         e -> {
                             view.hideProgress();
-                            view.showError(e);
+                            view.showErrorAndRetryButton();
                         })
         );
 

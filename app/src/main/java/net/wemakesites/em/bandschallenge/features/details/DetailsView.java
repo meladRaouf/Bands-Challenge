@@ -5,12 +5,12 @@ import net.wemakesites.em.bandschallenge.features.base.MvpView;
 
 
 
- interface DetailsView extends MvpView {
-     void showProgress();
+interface DetailsView extends MvpView {
+    void showProgress();
 
-     void hideProgress();
+    void hideProgress();
 
-     void showBandData(BandData bandData);
+    void showBandData(BandData bandData);
 
-     void showError(Throwable e);
- }
+    void showErrorAndRetryButton();
+}

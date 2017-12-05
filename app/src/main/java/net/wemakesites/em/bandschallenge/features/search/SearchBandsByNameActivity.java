@@ -57,6 +57,9 @@ public class SearchBandsByNameActivity extends AbstractBaseActivity implements S
     @Override
     protected void initViews(final Bundle savedInstanceState) {
         setSupportActionBar(toolbar);
+        presenter.addOnItemClickedSubscriber();
+        presenter.addOnTextChangedSubscriber();
+
     }
 
     @Override

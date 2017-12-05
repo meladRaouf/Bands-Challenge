@@ -11,4 +11,6 @@
     <string name="genre">Genre:</string>
     <string name="band_name">Band name:</string>
     <string name="country">Country:</string>
+    <string name="retry">Retry</string>
+    <string name="band_photo">The band cover photo.</string>
 </resources>
