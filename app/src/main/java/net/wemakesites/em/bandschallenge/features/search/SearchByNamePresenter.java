@@ -45,25 +45,27 @@ class SearchByNamePresenter extends BasePresenter<SearchByNameView> {
     }
 
 
-     void addOnItemClickedSubscriber() {
+    void addOnItemClickedSubscriber() {
         final Observable<SearchResult> adapterViewItemClickEventObservable =
                 RxAutoCompleteTextView.itemClickEvents(view.getAutoCompleteTextView())
-                        .map(adapterViewItemClickEvent -> (SearchResult) view.getAutoCompleteTextView().getAdapter()
-                                .getItem(adapterViewItemClickEvent.position()))
+                        .map(adapterViewItemClickEvent ->
+                                (SearchResult) view.getAutoCompleteTextView().getAdapter()
+                                        .getItem(adapterViewItemClickEvent.position()))
                         .observeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
         addDisposable(adapterViewItemClickEventObservable.subscribe(view::bandItemClicked));
     }
 
 
-     void addOnTextChangedSubscriber() {
+    void addOnTextChangedSubscriber() {
         InitialValueObservable<TextViewTextChangeEvent> textChangeObservable =
                 RxTextView.textChangeEvents(view.getAutoCompleteTextView());
         addDisposable(getProgressBarSubscriber(textChangeObservable));
         addDisposable(getSearchResponseSubscriber(textChangeObservable));
     }
 
-    private Disposable getProgressBarSubscriber(final InitialValueObservable<TextViewTextChangeEvent> textChangeObservable) {
+    private Disposable getProgressBarSubscriber(
+            final InitialValueObservable<TextViewTextChangeEvent> textChangeObservable) {
         return textChangeObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
@@ -85,20 +87,26 @@ class SearchByNamePresenter extends BasePresenter<SearchByNameView> {
                         .observeOn(AndroidSchedulers.mainThread())
                         .retry(NUMBER_OF_RETRIES);
         return searchResponseObservable.
-                subscribe(searchResponse -> {
-                            view.displaySearchResult(searchResponse.getResponseData().getSearchResults());
-                            view.hideAutoCompleteProgressBar();
-                        },
-                        e -> view.errorLoadingSearchResults(e)
+                subscribe(this::searchCompleted
+                        , this::searchError
+
                 );
 
 
     }
 
 
+    private void searchCompleted(SearchResponse searchResponse) {
+        view.displaySearchResult(searchResponse.getResponseData().getSearchResults());
+        view.hideAutoCompleteProgressBar();
+    }
+
+    private void searchError(Throwable e) {
+        view.errorLoadingSearchResults(e);
+    }
+
     void saveInHistory(final SearchResult searchResult) {
         dataManager.saveInHistory(searchResult);
     }
-
 
 }

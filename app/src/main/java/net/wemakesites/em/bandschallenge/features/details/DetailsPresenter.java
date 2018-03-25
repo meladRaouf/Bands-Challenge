@@ -1,6 +1,7 @@
 package net.wemakesites.em.bandschallenge.features.details;
 
 import net.wemakesites.em.bandschallenge.data.DataManager;
+import net.wemakesites.em.bandschallenge.data.model.response.banddetails.BandDetailsResponse;
 import net.wemakesites.em.bandschallenge.features.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -13,7 +14,6 @@ class DetailsPresenter extends BasePresenter<DetailsView> {
 
     private final DataManager dataManager;
     private DetailsView view;
-
 
 
     @Inject
@@ -33,17 +33,22 @@ class DetailsPresenter extends BasePresenter<DetailsView> {
 
         addDisposable(dataManager.getBand(bandId)
                 .subscribeOn(Schedulers.io())
-
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(bandDetailsResponse -> {
-                            view.hideProgress();
-                            view.showBandData(bandDetailsResponse.getBandData());
-                        },
-                        e -> {
-                            view.hideProgress();
-                            view.showErrorAndRetryButton();
-                        })
+                .subscribe(this::detailsCompleted,
+                        this::detailsError
+                )
         );
 
+    }
+
+    private void detailsError(Throwable e) {
+        view.hideProgress();
+        view.showErrorAndRetryButton();
+    }
+
+
+    private void detailsCompleted(BandDetailsResponse bandDetailsResponse) {
+        view.hideProgress();
+        view.showBandData(bandDetailsResponse.getBandData());
     }
 }
